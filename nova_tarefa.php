@@ -26,15 +26,22 @@
 						<li><a href="todas_tarefas.php">Todas tarefas</a></li>
 					</ul>
 				</div>
+                            <?php
+                            if (isset($_GET['inclusao']) && ($_GET['inclusao']==1)){?>
+                            <div>
+                                <h5>Inclusão Feita com sucesso! </h5>
+                            </div>
+                            <?php
+                            }
+                            ?>
+                                
 
 				<div >
-					<div >
-						<div >
-							<div>
+					
 								<h4>Nova tarefa</h4>
 								<hr />
 
-								<form method="POST" action="tarefa_controller.php">
+                                                                <form method="POST" action="tarefa_controller.php">
 									<div >
 										<label>Descrição da tarefa:</label>
 										<input type="text"  placeholder="Exemplo: Lavar o carro" name="tarefa">
@@ -42,10 +49,7 @@
 
 									<input type="submit" value="Cadastrar">
 								</form>
-							</div>
-						</div>
-					</div>
-				</div>
+											</div>
 			</div>
 		</div>
 	</body>
