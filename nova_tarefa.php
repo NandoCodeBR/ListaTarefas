@@ -41,7 +41,7 @@
 								<h4>Nova tarefa</h4>
 								<hr />
 
-                                                                <form method="POST" action="tarefa_controller.php">
+                                                                <form method="POST" action="tarefa_controller.php?acao=inserir">
 									<div >
 										<label>Descrição da tarefa:</label>
 										<input type="text"  placeholder="Exemplo: Lavar o carro" name="tarefa">
