@@ -1,5 +1,7 @@
-<?php 
-Class tarefa{
+<?php
+
+Class tarefa {
+
     private $id;
     private $id_status;
     private $tarefa;
@@ -8,8 +10,11 @@ Class tarefa{
     public function __get($atributo) {
         return $this->$atributo;
     }
-    public function __set($atributo, $valor){
+
+    public function __set($atributo, $valor) {
         $this->$atributo = $valor;
     }
+
 }
+
 ?>
