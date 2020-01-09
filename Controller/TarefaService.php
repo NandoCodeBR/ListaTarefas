@@ -45,6 +45,12 @@ Class TarefaService {
         $stmt->execute();
         
     }
+    public function Confirmar() {
+        $query = 'UPDATE tb_tarefas SET id_status = 2 WHERE tb_tarefas.id = :id';
+        $stmt = $this->conexao->prepare($query);
+        $stmt->bindValue( ':id' , $this->tarefa->__get('id'));
+        $stmt->execute();
+    }
 
 }
 

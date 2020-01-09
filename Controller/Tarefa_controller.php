@@ -41,6 +41,14 @@ if ($acao == 'inserir') {
     $tarefaService = new TarefaService($conexao, $tarefa);
     $tarefas = $tarefaService->Deletar();
     header('Location: todas_tarefas.php?exclusao=1');
+
+} else if($acao=='confirmar'){
+    $tarefa = new tarefa();
+    $conexao = new Conexao();
+    $tarefa->__set('id', $_POST['id']);
+    $tarefaService = new TarefaService($conexao, $tarefa);
+    $tarefas = $tarefaService->Confirmar();
+    header('Location: todas_tarefas.php?confirma=1');
 }
 
 ?>
