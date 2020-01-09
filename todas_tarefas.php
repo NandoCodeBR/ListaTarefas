@@ -8,6 +8,7 @@ require 'tarefa_controller.php';
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>App Lista Tarefas</title>
+        <link rel="stylesheet" href="css/Model.css">
 
         <script>
             function editar(id, txt_tarefa){
@@ -18,12 +19,16 @@ require 'tarefa_controller.php';
                 let inputTarefa = document.createElement('input')
                 inputTarefa.type = 'text';
                 inputTarefa.name = 'tarefa';
+                inputTarefa.id = 'EditaInput';
                 inputTarefa.value = txt_tarefa
                 
                 let inputId = document.createElement('input')
                 inputId.type = 'hidden'
                 inputId.name = 'id'
                 inputId.value = id
+
+
+                
                 
                 
                 let button = document.createElement('button')
@@ -33,13 +38,15 @@ require 'tarefa_controller.php';
                 form.appendChild(inputTarefa)
                 form.appendChild(inputId)
                 form.appendChild(button)
+                
+
                 let tarefa = document.getElementById("tarefa_"+id)
                 tarefa.innerHTML = ''
               
                 tarefa.insertBefore(form,tarefa[0])
             }
                 
-                function deletar(id){
+                function deletar(id, txt_tarefa){
                 let formD = document.createElement('form')
                 formD.method = 'POST'
                 formD.action = 'tarefa_controller.php?acao=deletar'
@@ -51,11 +58,16 @@ require 'tarefa_controller.php';
                 
                 let btnDeletar = document.createElement('button')
                 btnDeletar.type = 'submit'
-                btnDeletar.innerHTML = 'Clique para confirmar exclusão'
+                btnDeletar.innerHTML = 'Deseja deletar?'
+                
+                let lblTarefa = document.createElement('label')
+                lblTarefa.value = txt_tarefa
+                lblTarefa.innerText = txt_tarefa
                 
                 
                 formD.appendChild(inputIdDeletar);
                 formD.appendChild(btnDeletar);
+                formD.appendChild(lblTarefa);
                 
                 let tarefa = document.getElementById("tarefa_"+id)
                 tarefa.innerHTML = ''
@@ -65,18 +77,51 @@ require 'tarefa_controller.php';
                 
              
                 }
+                function confirmar(id, txt_tarefa){
+                let formC = document.createElement('form')
+                formC.action = 'tarefa_controller.php?acao=confirmar';
+                formC.method = 'POST';
+                
+
+                
+                let inputIdC = document.createElement('input')
+                inputIdC.type = 'hidden'
+                inputIdC.name = 'id'
+                inputIdC.value = id
+
+
+                
+                
+                
+                let buttonC = document.createElement('button')
+                buttonC.type = 'submit';
+                buttonC.innerHTML = 'Deseja Confirmar?'
+                
+                formC.appendChild(inputIdC)
+                formC.appendChild(buttonC)
+                
+
+                let tarefaC = document.getElementById("tarefa_"+id)
+                tarefaC.innerHTML = ''
+              
+                tarefaC.insertBefore(formC, tarefaC[0])
+                }
                 
                 
        </script>
+       
 </head>
 
 <body>
+  
+
     <nav >
         <div >
             <a href="#">
                 <img src="img/logo.png" width="30" height="30" alt="">
                 App Lista Tarefas
             </a>
+            
         </div>
     </nav>
 
@@ -96,19 +141,55 @@ require 'tarefa_controller.php';
                     <?php
                 }
                 ?>
+        <?php if (isset($_GET['exclusao']) && ($_GET['exclusao'] == 1)) { ?>
+                    <div>
+                        <h3>Deletado com sucesso! </h3>
+                    </div>
+                    <?php
+                }
+                ?>
+                <?php if (isset($_GET['confirma']) && ($_GET['confirma'] == 1)) { ?>
+                    <div>
+                        <h3>Tarefa Concluída! </h3>
+                    </div>
+                    <?php
+                }
+                ?>
         <h4>Todas tarefas</h4>
 
         <?php foreach ($tarefas as $indice => $tarefa) { ?>
             <div>
-                <div id="tarefa_<?= $tarefa->id?>">
+                <?php
+                if ($tarefa->status=="pendente") {
+
+                
+                ?>
+                <div id="tarefa_<?= $tarefa->id?>" class="divPendente">
                     <?php
                     echo "$tarefa->tarefa ($tarefa->status)";
                     ?>
+                    <br>
                     <button onclick="editar(<?= $tarefa->id?>, '<?= $tarefa->tarefa ?>')">Editar</button>
-                    <button onclick=deletar(<?= $tarefa->id?>)>Deletar</button>
+   
+                    <button onclick="deletar(<?= $tarefa->id?>, '<?= $tarefa->tarefa ?>')">Deletar</button>
+                    <button onclick="confirmar(<?= $tarefa->id?>, '<?= $tarefa->tarefa ?>')">Confluir Tarefa</button>
+                 
 
                 </div>
+                <?php } else if ($tarefa->status=="realizado") {
+                    ?>
+                    <div id="tarefa_<?= $tarefa->id?>" class="divRealizado">
+                    <?php
+                    echo "$tarefa->tarefa ($tarefa->status)";
+                    ?>
+                    <br>
+                    <button onclick="editar(<?= $tarefa->id?>, '<?= $tarefa->tarefa ?>')">Editar</button>
+                    
+                    <button onclick="deletar(<?= $tarefa->id?>, '<?= $tarefa->tarefa ?>')">Deletar</button>
+                 
 
+                </div>
+                <?php } ?>
 
 
             </div>

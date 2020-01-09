@@ -3,7 +3,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>App Lista Tarefas</title>
-
+        <link rel="stylesheet" href="css/Model.css">    
 
     </head>
 
@@ -46,7 +46,7 @@
                             <input type="text"  placeholder="Exemplo: Lavar o carro" name="tarefa">
                         </div>
 
-                        <input type="submit" value="Cadastrar">
+                        <input type="submit" value="Cadastrar" class="cadastro">
                     </form>
                 </div>
             </div>
