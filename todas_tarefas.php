@@ -8,8 +8,8 @@ require 'tarefa_controller.php';
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>App Lista Tarefas</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/Model.css">
-
         <script>
             function editar(id, txt_tarefa){
                 let form = document.createElement('form')
@@ -19,7 +19,7 @@ require 'tarefa_controller.php';
                 let inputTarefa = document.createElement('input')
                 inputTarefa.type = 'text';
                 inputTarefa.name = 'tarefa';
-                inputTarefa.id = 'EditaInput';
+                inputTarefa.className = "form-control";
                 inputTarefa.value = txt_tarefa
                 
                 let inputId = document.createElement('input')
@@ -33,6 +33,7 @@ require 'tarefa_controller.php';
                 
                 let button = document.createElement('button')
                 button.type = 'submit';
+                button.className = "btn btn-success"
                 button.innerHTML = 'Salvar'
                 
                 form.appendChild(inputTarefa)
@@ -58,6 +59,7 @@ require 'tarefa_controller.php';
                 
                 let btnDeletar = document.createElement('button')
                 btnDeletar.type = 'submit'
+                btnDeletar.className='btn btn-success'
                 btnDeletar.innerHTML = 'Deseja deletar?'
                 
                 let lblTarefa = document.createElement('label')
@@ -94,6 +96,7 @@ require 'tarefa_controller.php';
                 
                 
                 let buttonC = document.createElement('button')
+                buttonC.className="btn btn-success"
                 buttonC.type = 'submit';
                 buttonC.innerHTML = 'Deseja Confirmar?'
                 
@@ -126,11 +129,12 @@ require 'tarefa_controller.php';
     </nav>
 
     <div>
-        <ul >
-            <li ><a href="index.php">Tarefas pendentes</a></li>
-            <li ><a href="nova_tarefa.php">Nova tarefa</a></li>
-            <li><a href="#">Todas tarefas</a></li>
-        </ul>
+    <ul class="nav-tabs nav">
+                        <li class="nav-item"><a class="nav-link" href="index.php" active>Tarefas pendentes</a></li>
+
+                        <li class="nav-item"><a class="nav-link" href="nova_tarefa.php">Nova tarefa</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="#">Todas tarefas</a></li>
+                    </ul>
     </div>
 
     <div>
@@ -164,28 +168,28 @@ require 'tarefa_controller.php';
 
                 
                 ?>
-                <div id="tarefa_<?= $tarefa->id?>" class="divPendente">
+                <div id="tarefa_<?= $tarefa->id?>" class="divPendente text-danger">
                     <?php
                     echo "$tarefa->tarefa ($tarefa->status)";
                     ?>
                     <br>
-                    <button onclick="editar(<?= $tarefa->id?>, '<?= $tarefa->tarefa ?>')">Editar</button>
+                    <button class="btn btn-success" onclick="editar(<?= $tarefa->id?>, '<?= $tarefa->tarefa ?>')">Editar</button>
    
-                    <button onclick="deletar(<?= $tarefa->id?>, '<?= $tarefa->tarefa ?>')">Deletar</button>
-                    <button onclick="confirmar(<?= $tarefa->id?>, '<?= $tarefa->tarefa ?>')">Confluir Tarefa</button>
+                    <button class="btn btn-success" onclick="deletar(<?= $tarefa->id?>, '<?= $tarefa->tarefa ?>')">Deletar</button>
+                    <button class="btn btn-success" onclick="confirmar(<?= $tarefa->id?>, '<?= $tarefa->tarefa ?>')">Confluir Tarefa</button>
                  
 
                 </div>
                 <?php } else if ($tarefa->status=="realizado") {
                     ?>
-                    <div id="tarefa_<?= $tarefa->id?>" class="divRealizado">
+                    <div id="tarefa_<?= $tarefa->id?>" class="divRealizado text-success">
                     <?php
                     echo "$tarefa->tarefa ($tarefa->status)";
                     ?>
                     <br>
-                    <button onclick="editar(<?= $tarefa->id?>, '<?= $tarefa->tarefa ?>')">Editar</button>
+                    <button class="btn btn-success" onclick="editar(<?= $tarefa->id?>, '<?= $tarefa->tarefa ?>')">Editar</button>
                     
-                    <button onclick="deletar(<?= $tarefa->id?>, '<?= $tarefa->tarefa ?>')">Deletar</button>
+                    <button class="btn btn-success" onclick="deletar(<?= $tarefa->id?>, '<?= $tarefa->tarefa ?>')">Deletar</button>
                  
 
                 </div>
@@ -200,5 +204,8 @@ require 'tarefa_controller.php';
 
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
 </body>
 </html>
